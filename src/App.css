@@ -36,10 +36,10 @@
   font-weight: bold;
 }
 
-/* Main content */
-.content {
+main {
   display: flex;
-  justify-content: center; /* center horizontally */
-  align-items: flex-start; /* from top */
-  padding-top: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 10px;
 }
