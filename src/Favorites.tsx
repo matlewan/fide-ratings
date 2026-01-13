@@ -1,40 +1,7 @@
-import { useEffect, useState } from "react";
-import type { LichessPlayer } from "./LichessPlayer";
 import "./Favorites.css";
+import type { LichessPlayer } from "./LichessPlayer";
 
-function Favorites() {
-  const [players, setPlayers] = useState<LichessPlayer[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchPlayers = async () => {
-    try {
-      const response = await fetch("http://localhost:8080/players");
-
-      if (!response.ok) {
-        throw new Error("Błąd podczas pobierania danych");
-      }
-
-      const data: LichessPlayer[] = await response.json();
-      setPlayers(data);
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Nieznany błąd");
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetchPlayers();
-  }, []);
-
-  if (error) return <p>Błąd: {error}</p>;
-
-  async function remove(id: number): Promise<void> {
-    await fetch(`http://localhost:8080/players/${id}`, { method: "DELETE" });
-    await fetchPlayers();
-  }
+function Favorites({ players, removePlayer } : { players : LichessPlayer[], removePlayer : any }) {
 
   return (
     <div className="favorites-container">
@@ -62,7 +29,7 @@ function Favorites() {
                 <td><b>{player.standard}</b></td>
                 <td><b>{player.rapid}</b></td>
                 <td><b>{player.blitz}</b></td>
-                <td className="remove" onClick={() => remove(player.id)}>❌</td>
+                <td className="remove" onClick={() => removePlayer(player.id)}>❌</td>
               </tr>
             ))}
           </tbody>

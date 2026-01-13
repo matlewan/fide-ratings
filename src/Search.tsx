@@ -2,39 +2,16 @@ import { useState } from "react";
 import type { LichessPlayer } from "./LichessPlayer";
 import "./Search.css";
 
-function Search() {
+function Search({ addPlayer } : { addPlayer : any }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<LichessPlayer[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async () => {
-    if (!query.trim()) return;
-
-    setError(null);
-    try {
-      const response = await fetch(
-        `https://lichess.org/api/fide/player?q=${encodeURIComponent(query)}`
-      );
-
-      if (!response.ok) throw new Error();
-
-      const data: LichessPlayer[] = await response.json();
-      setResults(data);
-    } catch {
-      setError("Nie udało się pobrać danych");
-    }
-  };
-
-  const handleAddPlayer = async (player: LichessPlayer) => {
-    try {
-      await fetch("http://localhost:8080/players", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(player),
-      });
-    } catch {
-      alert("Błąd zapisu");
-    }
+    const response = await fetch(
+      `https://lichess.org/api/fide/player?q=${encodeURIComponent(query)}`
+    );
+    const data: LichessPlayer[] = await response.json();
+    setResults(data);
   };
 
   return (
@@ -49,8 +26,6 @@ function Search() {
         />
         <button onClick={handleSearch}>Wyszukaj</button>
       </div>
-
-      {error && <p className="error">{error}</p>}
 
       {(
         <div className="table-wrapper">
@@ -78,7 +53,7 @@ function Search() {
                   <td>{player.rapid}</td>
                   <td>{player.blitz}</td>
                   <td>
-                    <button className="add-button" onClick={() => handleAddPlayer(player)}>
+                    <button className="add-button" onClick={() => addPlayer(player)}>
                       +
                     </button>
                   </td>
