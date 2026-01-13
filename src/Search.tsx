@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { LichessPlayer } from "./LichessPlayer";
 import "./Search.css";
 
-function Search({ addPlayer } : { addPlayer : any }) {
+function Search({ addPlayer }: { addPlayer: any }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<LichessPlayer[]>([]);
 
@@ -18,15 +18,11 @@ function Search({ addPlayer } : { addPlayer : any }) {
     <div className="search">
       <h2>Wyszukiwanie zawodników</h2>
       <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Wpisz nazwisko..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button onClick={handleSearch}>Wyszukaj</button>
+        <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }} >
+          <input type="text" placeholder="Wpisz nazwisko..." value={query} onChange={(e) => setQuery(e.target.value)} />
+          <button type="submit">Wyszukaj</button>
+        </form>
       </div>
-
       {(
         <div className="table-wrapper">
           <table className="results-table">

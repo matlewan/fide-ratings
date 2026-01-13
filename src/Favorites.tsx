@@ -2,7 +2,7 @@ import "./Favorites.css";
 import type { LichessPlayer } from "./LichessPlayer";
 
 function Favorites({ players, removePlayer } : { players : LichessPlayer[], removePlayer : any }) {
-
+  const sortedPlayers = players.sort((a,b) => b.standard - a.standard)
   return (
     <div className="favorites-container">
       <h2>Moja Lista FIDE</h2>
@@ -21,7 +21,7 @@ function Favorites({ players, removePlayer } : { players : LichessPlayer[], remo
             </tr>
           </thead>
           <tbody>
-            {players.map((player) => (
+            {sortedPlayers.map((player) => (
               <tr key={player.id}>
                 <td><small>{player.title}</small></td>
                 <td className="name">{player.name}</td>
