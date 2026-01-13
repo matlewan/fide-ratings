@@ -24,7 +24,7 @@ function App() {
 
   useEffect(() => {
     fetchPlayers();
-  });
+  }, []);
 
   return (
     <main>
