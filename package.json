@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://matlewan.github.io/fide-ratings",
+  "homepage": "https://matlewan.github.io/fide-ratings/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
