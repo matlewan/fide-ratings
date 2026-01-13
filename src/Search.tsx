@@ -13,7 +13,7 @@ function Search() {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:8080/lichess/search?q=${encodeURIComponent(query)}`
+        `https://lichess.org/api/fide/player?q=${encodeURIComponent(query)}`
       );
 
       if (!response.ok) throw new Error();
