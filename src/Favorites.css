@@ -8,6 +8,11 @@ h2 {
   margin: 10px;
 }
 
+button {
+  margin-top: 10px;
+  background-color: #1976d2;
+}
+
 .favorites-table-wrapper {
   flex: 1;
   overflow-y: auto;

@@ -17,7 +17,7 @@ export class IndexedDb {
     });
   }
 
-  async addPlayer(player: LichessPlayer): Promise<void> {
+  async savePlayer(player: LichessPlayer): Promise<void> {
     const db = await this.dbPromise;
     const tx = db.transaction("players", "readwrite");
     tx.objectStore("players").put(player);

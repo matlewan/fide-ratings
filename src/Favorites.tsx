@@ -1,7 +1,7 @@
 import "./Favorites.css";
 import type { LichessPlayer } from "./LichessPlayer";
 
-function Favorites({ players, removePlayer } : { players : LichessPlayer[], removePlayer : any }) {
+function Favorites({ players, removePlayer, refresh } : { players : LichessPlayer[], removePlayer : any, refresh: any }) {
   function fix(rating: number) { return rating || 1000 };
   const sortedPlayers = players.sort((a,b) => fix(b.standard) - fix(a.standard))
   return (
@@ -36,6 +36,8 @@ function Favorites({ players, removePlayer } : { players : LichessPlayer[], remo
           </tbody>
         </table>
       </div>
+
+      <button onClick={() => refresh()}>Odśwież wszystkie rankingi</button>
     </div>
 
   );
