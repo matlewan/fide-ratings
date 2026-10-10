@@ -1,56 +1,73 @@
-# sv
+# FIDE Ratings
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Aplikacja służąca do przeglądania i śledzenia oficjalnych rankingów szachowych FIDE (szachy klasyczne, szybkie i błyskawiczne).
 
-## Creating a project
+**Główne funkcje:**
+* **Wyszukiwanie zawodników** – wyszukiwanie szachistów po nazwisku
+* **Zapisywanie ulubionych** – możliwość dodania wybranych graczy do listy, aby mieć do nich szybki dostęp.
+* **Podgląd rankingów** – sprawdzanie aktualnych rankingów dla kategorii Standard, Rapid i Blitz.
+* **Działanie offline (IndexedDB)** – wyszukani gracze i lista ulubionych zapisują się lokalnie w przeglądarce, dzięki czemu są dostępne również bez dostępu do sieci.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Wersja produkcyjna
+Aplikacja jest opublikowana pod adresem:  
+**[https://matlewan.github.io/fide-ratings/](https://matlewan.github.io/fide-ratings/)**
 
-```sh
-# create a new project
-npx sv create my-app
-```
+---
 
-To recreate this project with the same configuration:
+## Stos technologiczny i architektura
 
-```sh
-# recreate this project
-npx sv@1.1.1 create --template minimal --types ts --install npm fide-ratings-svelte
-```
+* **Framework:** [Svelte 5](https://svelte.dev/) (z wykorzystaniem mechanizmu **Runes**) & [SvelteKit](https://sveltekit.dev/).
+* **Routing i budowanie:** Adapter statyczny (`@sveltejs/adapter-static`) ze skonfigurowanym mechanizmem fallback (`404.html`) do obsługi routingu SPA na GitHub Pages.
+* **Przechowywanie danych:** Dedykowany serwis **IndexedDB** z obsługą lazy-loadingu oraz zabezpieczeniami przed uruchamianiem w środowisku SSR.
+* **Hosting:** GitHub Pages wspierane przez pakiet `gh-pages` oraz plik `.nojekyll` z flagą `--dotfiles`.
 
-## Adding features
+---
 
-Add features to your project with `sv add`:
+## Struktura projektu
 
-```sh
-npx sv add
-```
+* `src/routes/` – Widoki oraz ścieżki nawigacji po stronie klienta.
+* `src/lib/` – Komponenty, serwisy bazodanowe (IndexedDB) oraz moduły pomocnicze.
+* `static/` – Zasoby statyczne (w tym `.nojekyll` zapobiegający ignorowaniu folderu `_app` przez serwery GitHub Pages).
 
-For example, to add Tailwind CSS:
+---
 
-```sh
-npx sv add tailwindcss
-```
+## Uruchomienie lokalne
 
-## Developing
+### Wymagania
+* **Node.js** (wersja 18 lub wyższa)
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Instrukcja krok po kroku
 
-```sh
-npm run dev
+1. **Sklonuj repozytorium:**
+   ```bash
+   git clone https://github.com/matlewan/fide-ratings.git
+   cd fide-ratings
+   ```
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+2. **Zainstaluj zależności:**
+   ```bash
+   npm install
+   ```
 
-## Building
+3. **Uruchom tryb deweloperski:**
+   ```bash
+   npm run dev
+   ```
+   Aplikacja będzie dostępna pod adresem `http://localhost:5173`.
 
-To create a production version of your app:
+---
 
-```sh
+## Budowanie i wdrożenie (Deploy)
+
+### Podgląd wersji produkcyjnej
+Aby zbudować projekt i przetestować zachowanie ze ścieżką `base` (`/fide-ratings/`) lokalnie:
+```bash
 npm run build
+npm run preview
 ```
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+### Publikacja na GitHub Pages
+Automatyczne zbudowanie oraz wysłanie plików produkcyjnych na gałąź `gh-pages`:
+```bash
+npm run deploy
+```
