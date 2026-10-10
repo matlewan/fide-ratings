@@ -3,6 +3,7 @@
 	import { IndexedDb } from '#lib/model/indexedDb';
 	import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 
 	let players = $state<LichessPlayer[]>([]);
 	let loading = $state(true);
@@ -40,7 +41,7 @@
 	}
 
 	async function addPlayer() {
-		await goto('/search');
+		await goto(resolve('/search'));
 	}
 
 	// Odświeżanie rankingów (miejsce na Twoją logikę pobierania z API)
@@ -71,7 +72,7 @@
 	{:else if players.length === 0}
 		<div class="empty-state">
 			<p>Brak zapisanych zawodników w bazie lokalnej.</p>
-			<a href="/search" class="search-link">Wyszukaj zawodników i dodaj ich tutaj</a>
+			<a href={resolve("/search")} class="search-link">Wyszukaj zawodników i dodaj ich tutaj</a>
 		</div>
 	{:else}
 		<div class="actions">

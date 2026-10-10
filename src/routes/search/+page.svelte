@@ -2,6 +2,7 @@
 	import type { LichessPlayer } from '#lib/model/LichessPlayer';
 	import { IndexedDb } from '#lib/model/indexedDb';
     import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 
 	// Stan w Svelte 5 za pomocą runy $state
 	let query = $state('');
@@ -40,7 +41,7 @@
 		try {
 			const cleanPlayer = JSON.parse(JSON.stringify(player));
 			await db.savePlayer(cleanPlayer);
-			await goto("/");
+			await goto(resolve("/"));
 		} catch (err) {
 			console.error(err);
 			error = 'Nie udało się zapisać gracza w bazie.';

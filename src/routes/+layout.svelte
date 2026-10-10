@@ -3,6 +3,7 @@
 	import '#lib/styles/global.css';
 	import type { LayoutProps } from './$types';
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 
 	let { children }: LayoutProps = $props();
 </script>
@@ -13,8 +14,8 @@
 
 <header>
 	<nav>
-		<a href="/" class:active={page.url.pathname === '/'}>Lista</a>
-		<a href="/search" class:active={page.url.pathname === '/search'}>Wyszukaj</a>
+		<a href={resolve("/")} class:active={page.url.pathname === resolve("/")}>Lista</a>
+		<a href={resolve("/search")} class:active={page.url.pathname === resolve("/search")}>Wyszukaj</a>
 	</nav>
 </header>
 <main>
